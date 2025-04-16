@@ -8,3 +8,4 @@
 /home/synergy/NetBeansProjects/HRFlow/src/main/java/com/hrflow/entity/Employee.java
 /home/synergy/NetBeansProjects/HRFlow/src/main/java/com/hrflow/controller/DepartmentController.java
 /home/synergy/NetBeansProjects/HRFlow/src/main/java/com/hrflow/entity/AbstractEntityChangeTracker.java
+/home/synergy/NetBeansProjects/HRFlow/src/main/java/com/hrflow/entity/LazyLoadingDataModel.java

@@ -1,9 +1,9 @@
 package com.hrflow.controller;
 
 import com.hrflow.entity.Department;
+import com.hrflow.entity.LazyLoadingDataModel;
 import com.hrflow.facade.DepartmentFacade;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -15,13 +15,12 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "departmentController")
 @ViewScoped
-public class DepartmentController implements Serializable{
+public class DepartmentController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    
     private Department department;
-    private List<Department> departments;
+    private LazyLoadingDataModel<Department> lazyDepartment;
 
     @EJB
     private DepartmentFacade departmentFacade;
@@ -29,25 +28,23 @@ public class DepartmentController implements Serializable{
     @PostConstruct
     public void init() {
         department = new Department();
-        departments = departmentFacade.findAll();
-
+        lazyDepartment = new LazyLoadingDataModel<>(departmentFacade);
     }
 
     public void createDepartment() {
         departmentFacade.create(department);
-        departments = departmentFacade.findAll();
+
     }
-    
-    public void deleteDepartment(Department department){
+
+    public void deleteDepartment(Department department) {
         departmentFacade.remove(department);
-        departments = departmentFacade.findAll();
     }
-    
-    public void beforeUpdate(Department department){
+
+    public void beforeUpdate(Department department) {
         this.department = department;
     }
-    
-    public void updateDepartment(){
+
+    public void updateDepartment() {
         departmentFacade.edit(department);
     }
 
@@ -59,13 +56,12 @@ public class DepartmentController implements Serializable{
         this.department = department;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
+    public LazyLoadingDataModel<Department> getLazyDepartment() {
+        return lazyDepartment;
     }
 
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
+    public void setLazyDepartment(LazyLoadingDataModel<Department> lazyDepartment) {
+        this.lazyDepartment = lazyDepartment;
     }
 
-    
 }

@@ -24,20 +24,21 @@
             </f:facet>
 
             <h:form id="frm_dept">
-                <p:dataTable id="dt_dept" value="#{departmentController.departments}" var="dept"
+                <p:dataTable id="dt_dept" value="#{departmentController.lazyDepartment}" var="dept" rowKey="#{dept.id}" lazy="true"
                              paginator="true" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                             rowsPerPageTemplate="5,10">
+                             rowsPerPageTemplate="5,10" rows="5">
+
                     <p:column headerText="ID" width="8%">
                         <h:outputText value="#{dept.id}" />
                     </p:column>
 
-                    <p:column headerText="DEPT CODE">
+                    <p:column headerText="DEPT CODE" sortBy="#{dept.code}" filterBy="#{dept.code}" filterMatchMode="contains" >
                         <h:outputText value="#{dept.code}" />
                     </p:column>
 
-                    <p:column headerText="DEPT NAME">
+                    <p:column headerText="DEPT NAME" sortBy="#{dept.name}" filterBy="#{dept.name}" filterMatchMode="contains">
                         <h:outputText value="#{dept.name}" />
                     </p:column>
 

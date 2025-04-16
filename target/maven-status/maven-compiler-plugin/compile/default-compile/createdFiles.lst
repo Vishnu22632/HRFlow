@@ -1,5 +1,6 @@
 com/hrflow/resources/JavaEE8Resource.class
 com/hrflow/facade/DepartmentFacade.class
+com/hrflow/entity/LazyLoadingDataModel.class
 com/hrflow/JAXRSConfiguration.class
 com/hrflow/entity/Employee.class
 com/hrflow/entity/AbstractLongPKEntity.class
