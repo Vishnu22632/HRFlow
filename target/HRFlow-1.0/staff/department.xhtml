@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>HRFlow -- Department</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    </h:head>
+    <h:body>
+        <p:panel>
+            <f:facet name="header">
+                <h:form id="frm_input">
+                    <h:panelGrid id="left_grid" columns="2" style="float: left;" >
+                        <h:outputText value="List Of Department" />
+                    </h:panelGrid>
+
+                    <h:panelGrid id="right_grid" columns="2" style="float: right;">
+                        <p:commandButton icon="fa fa-plus" title="Create New Department" oncomplete="PF('createEditDeptDlg').show()"
+                                         resetValues="true" />
+                    </h:panelGrid>
+                </h:form>
+            </f:facet>
+
+            <h:form id="frm_dept">
+                <p:dataTable id="dt_dept" value="#{departmentController.departments}" var="dept"
+                             paginator="true" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             rowsPerPageTemplate="5,10">
+                    <p:column headerText="ID" width="8%">
+                        <h:outputText value="#{dept.id}" />
+                    </p:column>
+
+                    <p:column headerText="DEPT CODE">
+                        <h:outputText value="#{dept.code}" />
+                    </p:column>
+
+                    <p:column headerText="DEPT NAME">
+                        <h:outputText value="#{dept.name}" />
+                    </p:column>
+
+                    <p:column headerText="ACTION">
+                        <p:commandButton id="btn_update_dept" title="Update Department" icon="fa fa-pencil" 
+                                         resetValues="true" update="create_edit_dept" actionListener="#{departmentController.beforeUpdate(dept)}" oncomplete="PF('createEditDeptDlg').show()" />
+
+                        <p:commandButton id="btn_delete_dept" icon="fa fa-trash" title="Delete"
+                                         update="@form" ajax="true" actionListener="#{departmentController.deleteDepartment(dept)}" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+
+        </p:panel>
+
+
+        <p:dialog id="create_edit_dept_dlg" widgetVar="createEditDeptDlg" header="Department"
+                  resizable="false" showEffect="explode" hideEffect="explode" >
+            <h:form id="create_edit_dept">
+
+                <p:panelGrid columns="2" >
+
+                    <p:outputLabel id="olbl_code" value="Department Code" for="inpText_code" />
+                    <p:inputText id="inpText_code" value="#{departmentController.department.code}" />
+
+                    <p:outputLabel id="olbl_name" value="Department Name" for="inpText_name" />
+                    <p:inputText id="inpText_name" value="#{departmentController.department.name}" />
+
+
+                    <p:commandButton id="btn_save_bank" value="Save" rendered="#{empty departmentController.department.id}" actionListener="#{departmentController.createDepartment()}"
+                                     update=":frm_dept:dt_dept" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('createEditDeptDlg').hide();" />
+
+                    <p:commandButton id="btn_edit_bank" value="Update" rendered="#{not empty departmentController.department.id}"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('createEditDeptDlg').hide();"/>
+
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+
+    </h:body>
+</html>
