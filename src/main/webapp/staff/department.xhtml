@@ -25,7 +25,7 @@
 
             <h:form id="frm_dept">
                 <p:dataTable id="dt_dept" value="#{departmentController.lazyDepartment}" var="dept" rowKey="#{dept.id}" lazy="true"
-                             paginator="true" paginatorPosition="bottom"
+                             paginator="true" paginatorPosition="bottom" selectionMode="single"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                              rowsPerPageTemplate="5,10" rows="5">
@@ -74,6 +74,7 @@
                                      update=":frm_dept:dt_dept" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('createEditDeptDlg').hide();" />
 
                     <p:commandButton id="btn_edit_bank" value="Update" rendered="#{not empty departmentController.department.id}"
+                                     actionListener="#{departmentController.updateDepartment()}" update=":frm_dept:dt_dept"
                                      oncomplete="if (args &amp;&amp; !args.validationFailed) PF('createEditDeptDlg').hide();"/>
 
                 </p:panelGrid>

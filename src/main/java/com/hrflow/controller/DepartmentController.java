@@ -33,6 +33,7 @@ public class DepartmentController implements Serializable {
 
     public void createDepartment() {
         departmentFacade.create(department);
+        department = new Department();
 
     }
 
@@ -46,6 +47,7 @@ public class DepartmentController implements Serializable {
 
     public void updateDepartment() {
         departmentFacade.edit(department);
+        department = new Department();
     }
 
     public Department getDepartment() {
